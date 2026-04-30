@@ -34,7 +34,13 @@ cmake_minimum_required(VERSION 3.10)
 project(otf2xx VERSION 2.0.0)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-find_package(OTF2 3.1 EXACT)
+
+option(OTF2XX_RELAX_OTF2VERSION_REQUIREMENT "Whether OTF2xx should allow not exactly matching OTF2 versions." OFF)
+if(OTF2XX_RELAX_OTF2VERSION_REQUIREMENT)
+    find_package(OTF2 3.1)
+else()
+    find_package(OTF2 3.1 EXACT)
+endif()
 
 if (NOT OTF2_FOUND)
     message(FATAL_ERROR "Please download and install OTF2 3.1.\n"
